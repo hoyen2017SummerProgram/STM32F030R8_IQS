@@ -330,9 +330,9 @@
             <vShortWch>1</vShortWch>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>USE_STDPERIPH_DRIVER,STM32F072</Define>
+              <Define>USE_STDPERIPH_DRIVER,STM32F030</Define>
               <Undefine></Undefine>
-              <IncludePath>..\std_lib\src;..\CMSIS\Include;..\CMSIS\Device\ST\STM32F0xx\Include;..\MDK;..\CMSIS;..\std_lib\inc</IncludePath>
+              <IncludePath>..\std_lib\src;..\CMSIS\Include;..\CMSIS\Device\ST\STM32F0xx\Include;..\MDK;..\CMSIS;..\std_lib\inc;..\inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -499,14 +499,14 @@
           <GroupName>CMSIS</GroupName>
           <Files>
             <File>
-              <FileName>startup_stm32f072.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>..\CMSIS\Device\ST\STM32F0xx\Source\Templates\arm\startup_stm32f072.s</FilePath>
-            </File>
-            <File>
               <FileName>system_stm32f0xx.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\CMSIS\Device\ST\STM32F0xx\Source\Templates\system_stm32f0xx.c</FilePath>
+            </File>
+            <File>
+              <FileName>startup_stm32f030.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\CMSIS\Device\ST\STM32F0xx\Source\Templates\arm\startup_stm32f030.s</FilePath>
             </File>
           </Files>
         </Group>
@@ -516,7 +516,17 @@
             <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\main.c</FilePath>
+              <FilePath>..\app\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>hwcfg.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\app\hwcfg.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f0xx_it.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\app\stm32f0xx_it.c</FilePath>
             </File>
           </Files>
         </Group>
