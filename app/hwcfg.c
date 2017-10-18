@@ -421,3 +421,72 @@ void delay_msSysTick(uint16_t delay)
 
   while(counter_delay_ms != 0);
 }
+
+
+/**
+  * @brief  DeInitializes peripherals used by the I2C TOUCH PAD.
+  * @param  None
+  * @retval None
+  */
+void HW_TP_LowLevel_DeInit(void)
+{
+  GPIO_InitTypeDef  GPIO_InitStructure;
+
+  /* sEE_I2C Peripheral Disable */
+  I2C_Cmd(TP_I2C, DISABLE);
+
+  /* sEE_I2C DeInit */
+  I2C_DeInit(TP_I2C);
+
+  /* sEE_I2C Periph clock disable */
+  RCC_APB1PeriphClockCmd(TP_I2C_CLK, DISABLE);
+
+  /* GPIO configuration */
+  /* Configure sEE_I2C pins: SCL */
+  GPIO_InitStructure.GPIO_Pin = TP_I2C_SCL_PIN;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+  GPIO_Init(TP_I2C_SCL_GPIO_PORT, &GPIO_InitStructure);
+
+  /* Configure sEE_I2C pins: SDA */
+  GPIO_InitStructure.GPIO_Pin = TP_I2C_SDA_PIN;
+  GPIO_Init(TP_I2C_SDA_GPIO_PORT, &GPIO_InitStructure);
+}
+
+/**
+  * @brief  Initializes the I2C source clock and IOs used to drive the Touch.
+  * @param  None
+  * @retval None
+  */
+void HW_TP_LowLevel_Init(void)
+{
+  GPIO_InitTypeDef  GPIO_InitStructure;
+
+  /* Configure the I2C clock source. The clock is derived from the HSI */
+  RCC_I2CCLKConfig(RCC_I2C1CLK_SYSCLK);
+
+  /* sEE_I2C_SCL_GPIO_CLK and sEE_I2C_SDA_GPIO_CLK Periph clock enable */
+  RCC_AHBPeriphClockCmd(TP_I2C_SCL_GPIO_CLK | TP_I2C_SDA_GPIO_CLK, ENABLE);
+
+  /* sEE_I2C Periph clock enable */
+  RCC_APB1PeriphClockCmd(TP_I2C_CLK, ENABLE);
+
+  /* Connect PXx to I2C_SCL*/
+  GPIO_PinAFConfig(TP_I2C_SCL_GPIO_PORT, TP_I2C_SCL_SOURCE, GPIO_AF_1);
+
+  /* Connect PXx to I2C_SDA*/
+  GPIO_PinAFConfig(TP_I2C_SDA_GPIO_PORT, TP_I2C_SDA_SOURCE, GPIO_AF_1);
+
+  /* GPIO configuration */
+  /* Configure sEE_I2C pins: SCL */
+  GPIO_InitStructure.GPIO_Pin = TP_I2C_SCL_PIN;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_OType = GPIO_OType_OD;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+  GPIO_Init(TP_I2C_SCL_GPIO_PORT, &GPIO_InitStructure);
+
+  /* Configure sEE_I2C pins: SDA */
+  GPIO_InitStructure.GPIO_Pin = TP_I2C_SDA_PIN;
+  GPIO_Init(TP_I2C_SDA_GPIO_PORT, &GPIO_InitStructure);
+}

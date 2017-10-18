@@ -21,7 +21,7 @@ Description      :  IQS316 specific functions for SPI/I2C Firmware library
           date   :  2013-12-03
             by   :  Robert Samuel
    description   :  Basic functions to implement IQS316 via SPI/I2C (PIC18F4550 was used)
-/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 #include "iqs316_driver.h"
@@ -51,8 +51,7 @@ struct tIQS316 IQS316;
 //! \return None
 //
 //*****************************************************************************
-void
-IQS316_Settings(void)
+void IQS316_Settings(void)
 {
     uint8_t ui8StartGroup, ui8CurrentGroup;
     uint8_t ui8ProdNo, ui8VersionNo;
@@ -305,8 +304,7 @@ IQS316_Settings(void)
 //! \return None
 //
 //*****************************************************************************
-void
-IQS316_Refresh_Data(void)
+void IQS316_Refresh_Data(void)
 {
     uint8_t ui8CurrentGroup, ui8TempTouch, ui8TempProx;
     uint8_t ui8DataArray[5], ui8TempUIFlags0;
@@ -404,13 +402,12 @@ IQS316_Refresh_Data(void)
 void
 IQS316_Process_Data(void)
 {
-    uint8_t i, ui8ButtonNumber;
-    uint16_t ui16BitMask, ui16TempTouch;
+    uint16_t ui16TempTouch;
     //
     // Place code here to process data available in the IQS316 structure.
     // this example places the binary value of the pressed button on 4 LEDs
     //
-    ui16BitMask = 0x0001;
+
     //
     // place the touch bits 4 to 19 into a word
     //
@@ -457,7 +454,7 @@ uint8_t IQS316_Read(uint8_t ui8Address, uint8_t *ui8Data, uint8_t ui8Length)
     while(I2C_GetFlagStatus(TP_I2C, I2C_ISR_RXNE) == RESET)    
     {
       if((I2C_TimeOut--) == 0) 
-        return -1;//sEE_TIMEOUT_UserCallback();
+        return 1;//sEE_TIMEOUT_UserCallback();
     }
     
     /* Read data from RXDR */
@@ -474,7 +471,7 @@ uint8_t IQS316_Read(uint8_t ui8Address, uint8_t *ui8Data, uint8_t ui8Length)
   while(I2C_GetFlagStatus(TP_I2C, I2C_ISR_STOPF) == RESET)   
   {
     if((I2C_TimeOut--) == 0)
-      return -1; //sEE_TIMEOUT_UserCallback();
+      return 1; //sEE_TIMEOUT_UserCallback();
   }
   
   /* Clear STOPF flag */
@@ -502,28 +499,10 @@ uint8_t IQS316_Read(uint8_t ui8Address, uint8_t *ui8Data, uint8_t ui8Length)
 //! \return None
 //
 //*****************************************************************************
-void
-IQS316_ReadCurrentAddress(uint8_t *ui8Data, uint8_t ui8Length)
+uint8_t IQS316_ReadCurrentAddress(uint8_t *ui8Data, uint8_t ui8Length)
 {
-    uint8_t i;
-    //
-    // Wait for RDY and give I2C START (could be repeated start also)
-    //
-    CommsIQS316_start();
-    //
-    // Send device address plus READ
-    //
-    CommsIQS316_send((IQS316_ADDR << 1) + 0x01);
-    //
-    // Read in all the required data bytes, last read ends with a NACK
-    //
-    for(i = 0 ; i < ui8Length ; i++)
-    {
-        if(i == (ui8Length-1))
-            ui8Data[i] = CommsIQS316_read_nack();
-        else
-            ui8Data[i] = CommsIQS316_read_ack();
-    }
+
+  return 0;
 }
 
 //*****************************************************************************
@@ -542,29 +521,9 @@ IQS316_ReadCurrentAddress(uint8_t *ui8Data, uint8_t ui8Length)
 //! \return None
 //
 //*****************************************************************************
-void
-IQS316_Write(uint8_t ui8Address, uint8_t *ui8Data, uint8_t ui8Length)
+uint8_t IQS316_Write(uint8_t ui8Address, uint8_t *ui8Data, uint8_t ui8Length)
 {
-    uint8_t i;
-    //
-    // Wait for RDY and give I2C START (could be repeated start also)
-    //
-    CommsIQS316_start();	
-    //
-    // Initiate comms by sending device address plus WRITE
-    //
-    CommsIQS316_send((IQS316_ADDR << 1) + 0x00);
-    // 
-    // Send the address of where to write the data
-    //
-    CommsIQS316_send(ui8Address);
-    //
-    // Write in all the required data bytes
-    //
-    for(i = 0 ; i < ui8Length ; i++)
-    {
-        CommsIQS316_send(ui8Data[i]);
-    }   							
+  return 0;					
 }
 
 //*****************************************************************************

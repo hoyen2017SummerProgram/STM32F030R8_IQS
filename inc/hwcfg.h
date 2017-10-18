@@ -167,38 +167,38 @@ typedef enum
 /**
  * @brief Definition for COM port1, connected to USART1
  */
-#define COM_DEBUG                        USART1
-#define COM_DEBUG_CLK                    RCC_APB2Periph_USART1
+#define COM_MODEM                        USART1
+#define COM_MODEM_CLK                    RCC_APB2Periph_USART1
 
-#define COM_DEBUG_TX_PIN                 GPIO_Pin_9
-#define COM_DEBUG_TX_GPIO_PORT           GPIOA
-#define COM_DEBUG_TX_GPIO_CLK            RCC_AHBPeriph_GPIOA
-#define COM_DEBUG_TX_SOURCE              GPIO_PinSource9
-#define COM_DEBUG_TX_AF                  GPIO_AF_1
-
-#define COM_DEBUG_RX_PIN                 GPIO_Pin_10
-#define COM_DEBUG_RX_GPIO_PORT           GPIOA
-#define COM_DEBUG_RX_GPIO_CLK            RCC_AHBPeriph_GPIOA
-#define COM_DEBUG_RX_SOURCE              GPIO_PinSource10
-#define COM_DEBUG_RX_AF                  GPIO_AF_1
-
-#define COM_MODEM                        USART2
-#define COM_MODEM_CLK                    RCC_APB1Periph_USART2
-
-#define COM_MODEM_TX_PIN                 GPIO_Pin_2
+#define COM_MODEM_TX_PIN                 GPIO_Pin_9
 #define COM_MODEM_TX_GPIO_PORT           GPIOA
 #define COM_MODEM_TX_GPIO_CLK            RCC_AHBPeriph_GPIOA
-#define COM_MODEM_TX_SOURCE              GPIO_PinSource2
+#define COM_MODEM_TX_SOURCE              GPIO_PinSource9
 #define COM_MODEM_TX_AF                  GPIO_AF_1
 
-#define COM_MODEM_RX_PIN                 GPIO_Pin_3
+#define COM_MODEM_RX_PIN                 GPIO_Pin_10
 #define COM_MODEM_RX_GPIO_PORT           GPIOA
 #define COM_MODEM_RX_GPIO_CLK            RCC_AHBPeriph_GPIOA
-#define COM_MODEM_RX_SOURCE              GPIO_PinSource3
+#define COM_MODEM_RX_SOURCE              GPIO_PinSource10
 #define COM_MODEM_RX_AF                  GPIO_AF_1
 
-#define COM_DEBUG_IRQn                   USART1_IRQn
-#define COM_MODEM_IRQn                   USART2_IRQn
+#define COM_DEBUG                        USART2
+#define COM_DEBUG_CLK                    RCC_APB1Periph_USART2
+
+#define COM_DEBUG_TX_PIN                 GPIO_Pin_2
+#define COM_DEBUG_TX_GPIO_PORT           GPIOA
+#define COM_DEBUG_TX_GPIO_CLK            RCC_AHBPeriph_GPIOA
+#define COM_DEBUG_TX_SOURCE              GPIO_PinSource2
+#define COM_DEBUG_TX_AF                  GPIO_AF_1
+
+#define COM_DEBUG_RX_PIN                 GPIO_Pin_3
+#define COM_DEBUG_RX_GPIO_PORT           GPIOA
+#define COM_DEBUG_RX_GPIO_CLK            RCC_AHBPeriph_GPIOA
+#define COM_DEBUG_RX_SOURCE              GPIO_PinSource3
+#define COM_DEBUG_RX_AF                  GPIO_AF_1
+
+#define COM_DEBUG_IRQn                   USART2_IRQn
+#define COM_MODEM_IRQn                   USART1_IRQn
 
 /** @addtogroup TOUCH_PAD_I2C
   * @{

@@ -23,8 +23,8 @@ int main(void)
   LED_On(LED1);
   delay_msSysTick(400);
   LED_Off(LED1);
-  IQS316_Init();
   printf("IQS316 init test\r\n");
+  IQS316_Init();
 
   while(1)
   {
